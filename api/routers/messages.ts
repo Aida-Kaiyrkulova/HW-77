@@ -15,7 +15,7 @@ messagesRouter.get('/messages', async (_req, res) => {
     }
 });
 
-messagesRouter.post('/messages', imagesUpload.single('image'), async (req, res) => {
+messagesRouter.post('/messages/create', imagesUpload.single('image'), async (req, res) => {
     const { author, message } = req.body;
 
     const newMessage: MessageWithoutId = {

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchMessages } from './messagesThunk';
+import { createMessage, fetchMessages } from './messagesThunk';
 
 interface Message {
   id: string;
@@ -11,13 +11,11 @@ interface Message {
 interface MessagesState {
   items: Message[];
   isLoading: boolean;
-  error: string | null;
 }
 
 const initialState: MessagesState = {
   items: [],
   isLoading: false,
-  error: null,
 };
 
 const messagesSlice = createSlice({
@@ -28,16 +26,23 @@ const messagesSlice = createSlice({
     builder
       .addCase(fetchMessages.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
       })
-      .addCase(fetchMessages.fulfilled, (state, action) => {
+      .addCase(fetchMessages.fulfilled, (state,{payload: messages}) => {
         state.isLoading = false;
-        state.items = action.payload;
+        state.items = messages;
       })
-      .addCase(fetchMessages.rejected, (state, action) => {
+      .addCase(fetchMessages.rejected, (state) => {
         state.isLoading = false;
-        state.error = action.payload as string;
-      });
+      })
+      .addCase(createMessage.pending, (state) => {
+      state.isLoading = true;
+      })
+      .addCase(createMessage.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(createMessage.rejected, (state) => {
+        state.isLoading = false;
+      })
   },
 });
 

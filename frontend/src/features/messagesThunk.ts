@@ -19,6 +19,6 @@ export const createMessage = createAsyncThunk<void, MessageMutation>(
     if (messageMutation.message) formData.append('message', messageMutation.message);
     if (messageMutation.image) formData.append('image', messageMutation.image);
 
-    await axiosApi.post('/messages', formData);
+    await axiosApi.post('/messages/create', formData);
   }
 );
