@@ -1,9 +1,3 @@
-interface MessagesState {
-  items: Message[];
-  isLoading: boolean;
-  error: string | null;
-}
-
 interface Message {
   id: string;
   author: string | null;
